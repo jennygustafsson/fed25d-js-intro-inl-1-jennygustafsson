@@ -75,6 +75,7 @@ function rendercart() {
     cartTotalEl.textContent = totalprice;
     
 }
+/* render products */
 
 function renderProducts() {
 productGrid.innerHTML = PRODUCTS.map(product => `  
@@ -92,7 +93,6 @@ productGrid.innerHTML = PRODUCTS.map(product => `
         </div>
 
         <button class="btn btn--primary" type="button" data-id="${product.id}">Lägg i</button>
-        </div>
         </article>
 `).join("");
 }
@@ -100,16 +100,19 @@ productGrid.innerHTML = PRODUCTS.map(product => `
 
 renderProducts();
 
+/* Hantera klick på knappen lägg i varukorg */
+
 productGrid.addEventListener ("click", (e) => {
     const btn = e.target.closest ("button.btn--primary");
     if (!btn) return;
 
-    const id = btn.dataset.id;
+    const id = Number (btn.dataset.id);
     const product = PRODUCTS.find (p => p.id === id);
+    if (!product) return;
 
     /* hur många vill man lägga till */
-    const quantity = product.quantity;
-    if (quantity === 0) return;
+    const qtyToAdd = product.quantity;
+    if (qtyToAdd === 0) return;
 
     /* finns produkten i varukorgen? */
     const existing = cart.find (item => item.id === id);
@@ -134,17 +137,24 @@ productGrid.addEventListener ("click", (e) => {
 
 
 function increase (id) {
+    id = Number(id);
     const product = PRODUCTS.find (p => p.id === id);
+    if (!product) return;
        product.quantity++;
        renderProducts();
 }
+
 function decrease  (id)  {
+    id = Number(id);
     const product = PRODUCTS.find (p => p.id === id);
+    if (!product) return;
     if (product.quantity > 0) {
         product.quantity--;
         renderProducts();
-    }
+    }  
 }
+
+
 
 
 window.increase = increase;
