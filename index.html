@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="sv">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -7,6 +7,26 @@
     <title>vite</title>
   </head>
   <body>
+  <header class="header">
+    <h1 class="logo">Munkbutiken</h1>
+    <button class="cartBtn">Kundvagn (<span id="cartCount">0</span>)</button>
+    </header>
+
+    <main class="layout">
+      <section>
+      <h2>Våra Munkar</h2>
+      <div id="productGrid"></div>
+      </section>
+
+       <aside class="cart" id="cart">
+        <h2>Kundvagn</h2>
+        <ul id="cartList"></ul>
+        <p>Total: <strong id="cartTotal">0</strong>kr</p>
+        <button id="clearCart">Töm</button>
+        <button id="checkOut">Kassa</button>
+       </aside>
+      </main>
+
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
