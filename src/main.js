@@ -1,6 +1,6 @@
 import './styles/style.scss';
 
-console.log ("Main.js körs");
+console.log ("Main.js körs"); 
 
 const PRODUCTS = [
 
