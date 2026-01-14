@@ -59,34 +59,98 @@ const cartCountEl = document.getElementById ("cartCount");
 const cartTotalEl = document.getElementById ("cartTotal");
 const clearCartBtn = document.getElementById ("clearCart");
 
+const cart = [];
 
+function rendercart() { 
+    cartList.innerHTML = cart.map (item => ` )
+        <li> ${item.namn} x ${item.quantity} = ${item.price * item.quantity}kr </li>
+        `).join ("");
+
+    /* antal i kundvagn */
+    const totalCount = cart.reduce ((sum, item) => sum + item.quantity, 0);
+    cartCountEl.textContent = totalCount;
+
+    /* total pris i kundvagn */
+    const totalprice = cart.reduce ((sum, item) => sum + item.price * item.quantity, 0);
+    cartTotalEl.textContent = totalprice;
+    
+}
+
+function renderProducts() {
 productGrid.innerHTML = PRODUCTS.map(product => `  
       <article class="card">
       <img src="${product.image}" alt="${product.namn}">
+
       <div class="card__info">
-        <h3 class=card__title">${product.namn}</h3>
-        <p class=card__price">${product.price}kr</p>
+        <h3>${product.namn}</h3>
+        <p>${product.price}kr</p>
         
         <div class="qty">
-          <button onclick="decrease('$product.id')">+</button>
+          <button onclick="increase('${product.id}')">+</button>
           <span>${product.quantity}</span>
-          <button onclick="increase('${product.id}')">-</button>
+          <button onclick="decrease('${product.id}')">-</button>
         </div>
-      </div>
-        <button class="btn btn--primary" type="button" data-id="${product.id}">
-        Lägg i</button>
+
+        <button class="btn btn--primary" type="button" data-id="${product.id}">Lägg i</button>
+        </div>
         </article>
 `).join("");
+}
+
+
+renderProducts();
+
+productGrid.addEventListener ("click", (e) => {
+    const btn = e.target.closest ("button.btn--primary");
+    if (!btn) return;
+
+    const id = btn.dataset.id;
+    const product = PRODUCTS.find (p => p.id === id);
+
+    /* hur många vill man lägga till */
+    const quantity = product.quantity;
+    if (quantity === 0) return;
+
+    /* finns produkten i varukorgen? */
+    const existing = cart.find (item => item.id === id);
+    if (existing) {
+        existing.quantity += qtyToAdd;
+    } else {
+        cart.push ({
+            id: product.id,
+            namn: product.namn,
+            price: product.price,
+            quantity: qtyToAdd,
+        });
+    }
+
+    /* Nollställ antal produkter i varukorgen */
+    product.quantity = 0;
+
+    renderProducts();
+    renderCart();
+  });
+
+
 
 function increase (id) {
     const product = PRODUCTS.find (p => p.id === id);
-    product.quantity++;
-    render( )
+       product.quantity++;
+       renderProducts();
 }
 function decrease  (id)  {
     const product = PRODUCTS.find (p => p.id === id);
     if (product.quantity > 0) {
         product.quantity--;
+        renderProducts();
     }
-    render( )
 }
+
+
+window.increase = increase;
+window.decrease = decrease;
+
+clearCartBtn.addEventListener ("click", () => {
+    cart.length = 0; //tömmer arrayen
+    renderCart (); //uppdaterar kundvagnen
+});
