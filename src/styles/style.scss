@@ -1,12 +1,46 @@
 @use './reset';
 
+:root {
+    --bg: #f6f7fb;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --primary: #a7bdf8;
+    --primary-dark: #e64393;
+}
+
+* { 
+    box-sizing: border-box;
+}
+
+header {
+    position:  sticky;
+    z-index: 10;
+    padding: 16px 20px;
+
+    display: flex;
+    top: 0;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
 body {
     font-family: system-ui, Arial, sans-serif;
     margin: 0;
     padding: 20px;
+    color: var(--text);
+    background: var(--bg);
 }
 
 .layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 20px;
@@ -15,29 +49,65 @@ body {
 
 .grid { 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax (180px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax (220px, 1fr));
+    gap: 20px;
 }
 .card { 
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
     padding: 12px;
-    background: #fff;
+    background: var(--border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     
     h3 { margin: 0 0 6px};
-    p { margin: 0 0 10px};
+    p { margin: 0 0 10px; color: #555;} 
 
     button { 
         width: 100%;
         padding: 8px; 
         border-radius: 8px;
         border: 1px solid #333;
+        background: var(--primary);
         cursor: pointer;
     }
+}
+.card img {
+    width: 100%;
+    height: 140px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 10px;
+    
 }
 
 .cart { 
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 12px;
+    background: #fff;
+    
+}
+
+.qty {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.qty button {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+@media (max-width: 900px) { 
+    .layout {
+        grid-template-columns: 1fr;
+    }
+    .cart { 
+        position: static;
+    }
 }
