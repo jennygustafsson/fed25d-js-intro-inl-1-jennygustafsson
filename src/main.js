@@ -5,42 +5,52 @@ console.log ("Main.js körs");
 const PRODUCTS = [
 
     { id: "classic", namn: "Klassisk Munk", price: 10,
+      rating: 4.7,
       image: "./images/classic.jpg",
       quantity: 0
     },
     { id: "vanilla", namn: "Vanilj", price: 10,
+      rating: 4.3,
       image: "./images/vanilla.jpg",
       quantity: 0
      },
     { id: "choko", namn: "Choklad", price: 10,
+      rating: 4.9,
       image: "./images/choko.jpg",
       quantity: 0
     },
     { id: "lemon", namn: "Citronglazyr", price: 10,
-      image: "./images/lemon.jpg",
+      rating: 3.8,
+      image: "./images/lemon.jpg", 
       quantity: 0
     },
     { id: "caramel", namn: "Salt Karamell", price: 10, 
+      rating:5.0,
       image: "./images/caramel.jpg", 
       quantity: 0
      },
     { id: "raspberry", namn: "Hallonglazyr", price: 10,
+      rating: 4.7,
       image: "./images/raspberry.jpg",
       quantity: 0
      },
     { id: "strawberry", namn: "Jordgubbsglazyr", price: 10,
+      rating:4.7,
       image: "./images/strawberry.jpg",
       quantity: 0
      },
     { id: "Blueberry", namn: "Blåbärsglazyr", price: 10,
+      rating: 3.8,
       image: "./images/blueberry.jpg",
       quantity: 0
      },
     { id: "ore", namn: "Oreo", price: 10,
+      rating:4.9,
       image: "./images/oreo.jpg",
       quantity: 0
      },
     { id: "nuts", namn: "nötter", price: 10,
+      rating:4.5,
       image: "./images/nuts.jpg",
       quantity: 0
     },
@@ -52,6 +62,19 @@ const PRODUCTS = [
 const productGrid = document.getElementById ("productGrid");
 console.log ("productGrid,", productGrid);
 console.log ("antal produkter:", PRODUCTS.length);
+
+const sortContainer = document.querySelector (".sort");
+
+sortContainer.addEventListener ("click", handleSortClick) ;
+function handleSortClick (e) {
+    const btn = e.target.closest ("button");
+    if (!btn) return;
+
+    const sorttype = btn.dataset.sort;
+
+    sortProducts(sortrype);
+    renderProducts();
+}
 
 
 const cartList = document.getElementById ("cartList");
@@ -85,6 +108,7 @@ productGrid.innerHTML = PRODUCTS.map(product => `
       <div class="card__info">
         <h3>${product.namn}</h3>
         <p>${product.price}kr</p>
+        <p>Betyg: ${product.rating}</p>
         
         <div class="qty">
           <button onclick="increase('${product.id}')">+</button>
@@ -164,3 +188,28 @@ clearCartBtn.addEventListener ("click", () => {
     cart.length = 0; //tömmer arrayen
     renderCart (); //uppdaterar kundvagnen
 });
+
+function sortProducts (type) {
+  if (type === "name-asc") {
+    PRODUCTS.sort (compareByName);
+    }
+  if (type === "price-desc") {
+    PRODUCTS.sort (compareByPriceDesk);
+  }
+  
+  if (type === "rating-desc") {
+    PRODUCTS.sort (compareByRatingDesk);
+  }
+}
+
+function compareByName (a,b) {
+  return a.namn.localeCompare (b.namn);
+}
+
+function compareByPriceDesc (a,b) {
+  return b.price - a.price;
+}
+
+function compareByRatingDesk (a,b) {
+  return b.rating - a.rating;
+}
