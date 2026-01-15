@@ -7,53 +7,98 @@ const PRODUCTS = [
     { id: "classic", namn: "Klassisk Munk", price: 10,
       rating: 4.7,
       image: "./images/classic.jpg",
-      quantity: 0
+      quantity: 0,
+      category: "donut"
     },
     { id: "vanilla", namn: "Vanilj", price: 10,
       rating: 4.3,
       image: "./images/vanilla.jpg",
-      quantity: 0
+      quantity: 0,
+      category: "donut"
      },
     { id: "choko", namn: "Choklad", price: 10,
       rating: 4.9,
       image: "./images/choko.jpg",
-      quantity: 0
+      quantity: 0,
+      category: "donut"
     },
-    { id: "lemon", namn: "Citronglazyr", price: 10,
+    { id: "lemon", namn: "Citronglazyr", price: 12,
       rating: 3.8,
       image: "./images/lemon.jpg", 
-      quantity: 0
+      quantity: 0,
+      category: "donut"
     },
-    { id: "caramel", namn: "Salt Karamell", price: 10, 
+    { id: "caramel", namn: "Salt Karamell", price: 15, 
       rating:5.0,
       image: "./images/caramel.jpg", 
-      quantity: 0
+      quantity: 0,
+      category: "donut"
      },
     { id: "raspberry", namn: "Hallonglazyr", price: 10,
       rating: 4.7,
       image: "./images/raspberry.jpg",
-      quantity: 0
+      quantity: 0,
+      category: "donut"
      },
     { id: "strawberry", namn: "Jordgubbsglazyr", price: 10,
       rating:4.7,
       image: "./images/strawberry.jpg",
-      quantity: 0
+      quantity: 0,
+      category: "donut"
      },
-    { id: "Blueberry", namn: "Blåbärsglazyr", price: 10,
+    { id: "Blueberry", namn: "Blåbärsglazyr", price: 17,
       rating: 3.8,
       image: "./images/blueberry.jpg",
-      quantity: 0
+      quantity: 0,
+      category: "donut"
      },
-    { id: "ore", namn: "Oreo", price: 10,
+    { id: "ore", namn: "Oreo", price: 20,
       rating:4.9,
       image: "./images/oreo.jpg",
-      quantity: 0
+      quantity: 0,
+      category: "donut"
      },
-    { id: "nuts", namn: "nötter", price: 10,
+    { id: "nuts", namn: "nötter", price: 20,
       rating:4.5,
       image: "./images/nuts.jpg",
-      quantity: 0
+      quantity: 0,
+      category: "donut"
     },
+
+    { id: "blueberry", namn: "Blåbärsmuffin", price: 27,
+      rating:4.9,
+      image: "./images/blueberrymuffin.jpg",
+      quantity: 0,
+      category: "muffin"
+    },
+
+    { id: "choko", namn: "chokladmuffin", price: 30,
+      rating:4.6,
+      image: "./images/muffinchoko.jpg",
+      quantity: 0,
+      category: "muffin"
+    },
+
+    { id: "coffee", namn: "Kaffe", price: 22,
+      rating:5.0,
+      image: "./images/coffe.jpg",
+      quantity: 0,
+      category: "drink"
+    },
+
+    { id: "latte", namn: "Latte", price: 35,
+      rating:5.0,
+      image: "./images/latte1.jpg",
+      quantity: 0,
+      category: "drink"
+    },
+    { id: "cola", namn: "Cola Zero", price: 18,
+      rating:5.0,
+      image: "./images/colazero.jpg",
+      quantity: 0,
+      category: "drink"
+    },
+
 
 
 ];
@@ -64,6 +109,9 @@ console.log ("productGrid,", productGrid);
 console.log ("antal produkter:", PRODUCTS.length);
 
 const sortContainer = document.querySelector (".sort");
+const categoryContainer = document.querySelector (".categories");
+
+let currentCategory = "all";
 
 sortContainer.addEventListener ("click", handleSortClick) ;
 function handleSortClick (e) {
@@ -71,8 +119,21 @@ function handleSortClick (e) {
     if (!btn) return;
 
     const sorttype = btn.dataset.sort;
+    if (!sorttype) return;
 
-    sortProducts(sorttype);
+    currentSortType = sorttype;
+    renderProducts();
+}
+
+categoryContainer.addEventListener ("click", handleCategoryClick);
+function handleCategoryClick (e) {
+    const btn = e.target.closest ("button");
+    if (!btn) return;
+
+    const category = btn.dataset.category;
+    if (!category) return;
+
+    currentCategory = category;
     renderProducts();
 }
 
@@ -101,20 +162,21 @@ function renderCart() {
     if (cart.length === 0) {
         cartList.innerHTML = "<li>Kundvagnen är tom</li>";
     } else {
-        cartList.innerHTML = cart.map (item => `
-            <li> 
-                <strong>${item.namn}</strong><br>
-                <span>${item.quantity} st × ${item.price}kr = ${item.price * item.quantity}kr</span>
-            </li>
-        `).join ("");
+        cartList.innerHTML = cart.map(function(item) {
+            return "<li> <strong>" + item.namn + "</strong><br><span>" + item.quantity + " st × " + item.price + "kr = " + (item.price * item.quantity) + "kr</span></li>";
+        }).join ("");
     }
 
     /* antal i kundvagn */
-    const totalCount = cart.reduce ((sum, item) => sum + item.quantity, 0);
+    const totalCount = cart.reduce(function(sum, item) {
+        return sum + item.quantity;
+    }, 0);
     cartCountEl.textContent = totalCount;
 
     /* total pris i kundvagn */
-    const totalprice = cart.reduce ((sum, item) => sum + item.price * item.quantity, 0);
+    const totalprice = cart.reduce(function(sum, item) {
+        return sum + item.price * item.quantity;
+    }, 0);
     cartTotalEl.textContent = totalprice;
     
 }
@@ -146,8 +208,28 @@ function handleCheckoutClick () {
 
 /* render products */
 
+let currentSortType = null;
+
+function getFilteredProducts() {
+    var products;
+    if (currentCategory === "all") {
+        products = PRODUCTS.slice();
+    } else {
+        products = PRODUCTS.filter(function(product) {
+            return product.category === currentCategory;
+        });
+    }
+    
+    if (currentSortType) {
+        sortProducts(currentSortType, products);
+    }
+    
+    return products;
+}
+
 function renderProducts() {
-   productGrid.innerHTML = PRODUCTS.map(renderProductCard).join (""); }
+   const filteredProducts = getFilteredProducts();
+   productGrid.innerHTML = filteredProducts.map(renderProductCard).join (""); }
    
     function renderProductCard (product) { 
       return `
@@ -234,14 +316,14 @@ productGrid.addEventListener ("click", handleAddClick);
 
 
 function increase (id) {
-    const product = PRODUCTS.find (p => p.id === id);
+    var product = findProductById(id);
     if (!product) return;
-       product.quantity++;
-       renderProducts();
+    product.quantity++;
+    renderProducts();
 }
 
-function decrease  (id)  {
-    const product = PRODUCTS.find (p => p.id === id);
+function decrease (id) {
+    var product = findProductById(id);
     if (!product) return;
     if (product.quantity > 0) {
         product.quantity--;
@@ -255,16 +337,20 @@ function decrease  (id)  {
 window.increase = increase;
 window.decrease = decrease;
 
-function sortProducts (type) {
+function sortProducts (type, productsArray) {
+  if (!productsArray) {
+    productsArray = PRODUCTS;
+  }
+  
   if (type === "name-asc") {
-    PRODUCTS.sort (compareByName);
-    }
+    productsArray.sort (compareByName);
+  }
   if (type === "price-desc") {
-    PRODUCTS.sort (compareByPriceDesc);
+    productsArray.sort (compareByPriceDesc);
   }
   
   if (type === "rating-desc") {
-    PRODUCTS.sort (compareByRatingDesk);
+    productsArray.sort (compareByRatingDesk);
   }
 }
 

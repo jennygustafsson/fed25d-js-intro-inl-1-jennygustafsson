@@ -14,14 +14,24 @@
 
     <main class="layout">
       <section>
-      <h2>Våra Munkar</h2>
+      <h2></h2>
+
+      <div class="categories">
+        <span>Kategori</span> 
+        <button data-category="all">Alla</button>
+        <button data-category="donut">Munkar</button>
+        <button data-category="muffin">Muffins</button>
+        <button data-category="drink">Dryck</button>
+      </div>
       
       <div class="sort">
         <span>Sortera</span>
         <button type="button" data-sort="name-asc">Namn (A-Z)</button>
-        <button type="button" data-sort="price-desk">Dyrast först</button>
-        <button type="button" data-sort="rating-desk">Högst betyg</button>
+        <button type="button" data-sort="price-desc">Dyrast först</button>
+        <button type="button" data-sort="rating-desc">Högst betyg</button>
       </div>
+
+
 
       <div id="productGrid"></div>
       </section>
