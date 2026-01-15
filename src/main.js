@@ -231,26 +231,22 @@ function renderProducts() {
    const filteredProducts = getFilteredProducts();
    productGrid.innerHTML = filteredProducts.map(renderProductCard).join (""); }
    
-    function renderProductCard (product) { 
-      return `
-      <article class="card">
-      <img src="${product.image}" alt="${product.namn}">
-
-      <div class="card__info">
-        <h3>${product.namn}</h3>
-        <p>${product.price}kr</p>
-        <p>Betyg: ${product.rating}</p>
-        
-        <div class="qty">
-          <button onclick="increase('${product.id}')">+</button>
-          <span>${product.quantity}</span>
-          <button onclick="decrease('${product.id}')">-</button>
-        </div>
-
-        <button class="btn btn--primary" type="button" data-id="${product.id}">Lägg i</button>
-        </article>
-`;
-}
+    function renderProductCard (product) {
+      return "<article class=\"card\">" +
+        "<img src=\"" + product.image + "\" alt=\"" + product.namn + "\">" +
+        "<div class=\"card__info\">" +
+        "<h3>" + product.namn + "</h3>" +
+        "<p>" + product.price + "kr</p>" +
+        "<p>Betyg: " + product.rating + "</p>" +
+        "<div class=\"qty\">" +
+        "<button onclick=\"increase('" + product.id + "')\">+</button>" +
+        "<span>" + product.quantity + "</span>" +
+        "<button onclick=\"decrease('" + product.id + "')\">-</button>" +
+        "</div>" +
+        "<button class=\"btn btn--primary\" type=\"button\" data-id=\"" + product.id + "\">Lägg i Kundvagn</button>" +
+        "</div>" +
+        "</article>";
+    }
 
 
 renderProducts();

@@ -15,18 +15,71 @@
 }
 
 header {
-    position:  sticky;
+    position: sticky;
     z-index: 10;
-    padding: 16px 20px;
-
-    display: flex;
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #fafbfc 0%, #8bc1fa 100%);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     top: 0;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 3px solid #090809;
 }
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    justify-self: center;
+    grid-column: 2;
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.cartBtn {
+    justify-self: end;
+    grid-column: 3;
+    background: white;
+    border: 2px solid #f9f5f7;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #f0eeef;
+    cursor: pointer;
+    
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.cartBtn {
+    background: white;
+    border: 2px solid #fcf8fa;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #0a0a0a;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+
 
 
 body {
@@ -62,9 +115,10 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    align-items: center;
     
-    h3 { margin: 0 0 6px};
-    p { margin: 0 0 10px; color: #555;} 
+    h3 { margin: 0 0 6px; text-align: center;}
+    p { margin: 0 0 10px; color: #555; text-align: center;} 
 
     button { 
         width: 100%;
@@ -75,12 +129,21 @@ body {
         cursor: pointer;
     }
 }
+
+.card__info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .card img {
     width: 100%;
-    height: 140px;
-    aspect-ratio: 1/1;
+    max-width: 220px;
+    height: 220px;
     object-fit: cover;
     border-radius: 10px;
+    margin: 0 auto;
+    display: block;
     
 }
 
