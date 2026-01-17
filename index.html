@@ -43,6 +43,117 @@
         <button id="clearCart">Töm</button>
         <button id="checkOut">Kassa</button>
        </aside>
+
+    <div id="checkoutPopup" class="popup hidden">
+      <div class="popup-content">
+        <button class="close-btn" id="closeCheckout">×</button>
+        <h2>Checkout</h2>
+
+        <form id="orderForm" novalidate>
+
+        <label> 
+          Förnamn
+          <input type="text" id="firstname">
+          <span class="error"></span>
+        </label>
+
+        <label> 
+          Efternamn
+          <input type="text" id="lasttname">
+          <span class="error"></span>
+        </label>
+        
+        <label> 
+          Adress
+          <input type="text" id="adress">
+          <span class="error"></span>
+        </label>
+
+        <label> 
+          Postnummer
+          <input type="text" id="postcode">
+          <span class="error"></span>
+        </label>
+
+        <label> 
+          Postort
+          <input type="text" id="city">
+          <span class="error"></span>
+        </label>
+
+        <label> 
+          Telefon
+          <input type="text" id="phone">
+          <span class="error"></span>
+        </label>
+
+        <label> 
+          E-post
+          <input type="text" id="email">
+          <span class="error"></span>
+        </label>
+
+        <label> 
+          Rabattkod (valfritt)
+          <input type="text" id="discountCode" placeholder="Ange rabattkod">
+          <span class="error"></span>
+        </label>
+
+      <fieldset> 
+        <legend>Betalningsmetod</legend>
+
+        <label> 
+          <input type="radio" name="payment" value="card">
+          Kortbetalning
+        </label>
+
+        <label> 
+          <input type="radio" name="payment" value="invoice">
+          Faktura
+        </label>
+
+        <span class="error"></span>
+        
+        <div id="invoiceFields" class="hidden"> 
+          <label> 
+            Personnummer
+            <input type="text" id="personnummer" placeholder="YYYYMMDD-XXXX">
+            <span class="error"></span>
+          </label>
+        </div>
+
+      <label> 
+        <input type="checkbox" id="gdpr"> 
+        Jag godkänner att mina uppgifter sparas enligt GDPR
+        <span class="error"></span>
+      </label>
+
+      <label> 
+        <input type="checkbox" id="newsletter" checked>
+         Prenumerera på nyhetsbrev  
+      </label>
+
+          <button type="button" id="clearOrder">Rensa beställning</button>
+          <button type="submit">Slutför köp</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="thankYouPopup" class="popup hidden">
+      <div class="popup-content">
+        <h2>Tack för ditt köp!</h2>
+        <p>Din beställning har mottagits.</p>
+        <button id="closeThankYou">Stäng</button>
+      </div>
+    </div>
+</fieldset>
+
+      
+          
+          
+      
+    </h2>
+
       </main>
 
     <div id="app"></div>
