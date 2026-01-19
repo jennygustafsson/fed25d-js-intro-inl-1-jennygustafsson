@@ -16,6 +16,21 @@
       <section>
       <h2></h2>
 
+  <section class="rules">
+    <h2>Måsens specialregler</h2>
+
+    <ul> 
+      <li> Måndag före kl 10: 10% rabatt på hela beställningen. </li>
+      <li> Fredag efter kl 15.00 till Måndag 03.00: Helgpåslag med 15% på alla munkar </li>
+      <li> Över 800kr: Faktura får inte väljas.</li>
+      <li> Minst 10 av samma munksort: 10% rabatt på den sorten.</li>
+      <li> Mer än 15 munkar: Fri frakt, Annars gäller frakt på 25 kr + 10% av varukorgens total</li>
+      <li> Inte beställt inom 15 min: Formulär och varukorg rensas </li>
+    </ul>
+  </section>
+
+  <div id="slowMsg" class="message hidden"></div>
+
       <div class="categories">
         <span>Kategori</span> 
         <button data-category="all">Alla</button>
@@ -39,7 +54,19 @@
        <aside class="cart" id="cart">
         <h2>Kundvagn</h2>
         <ul id="cartList"></ul>
-        <p>Total: <strong id="cartTotal">0</strong>kr</p>
+
+        <div class="summary">
+          <p id="mondayRow" class="hidden">
+            Måndagsrabatt: 10% på hela beställningen
+          </p>
+          <p> 
+            Frakt: <strong id="shipping" >0</strong> Kr
+          </p>
+          <p>
+            Totalt: <strong id="cartTotal">0</strong> Kr
+          </p>
+        </div>
+
         <button id="clearCart">Töm</button>
         <button id="checkOut">Kassa</button>
        </aside>
@@ -101,6 +128,8 @@
 
       <fieldset> 
         <legend>Betalningsmetod</legend>
+
+        <p id="inovoiceInfo" class="small"></p>
 
         <label> 
           <input type="radio" name="payment" value="card">
